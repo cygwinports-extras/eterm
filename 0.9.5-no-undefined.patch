@@ -1,0 +1,11 @@
+--- origsrc/Eterm-0.9.5/src/Makefile.am	2006-08-22 13:23:11.000000000 -0500
++++ src/Eterm-0.9.5/src/Makefile.am	2008-12-25 22:37:29.740500000 -0600
+@@ -21,7 +21,7 @@
+ 
+ EXTRA_libEterm_la_SOURCES = $(MMX_SRCS) $(SSE2_SRCS)
+ 
+-libEterm_la_LDFLAGS = -release $(VERSION)
++libEterm_la_LDFLAGS = -release $(VERSION) -no-undefined
+ if HAVE_SSE2
+ libEterm_la_DEPENDENCIES = feature.h $(SSE2_OBJS)
+ libEterm_la_LIBADD = $(SSE2_OBJS)

@@ -1,0 +1,11 @@
+--- origsrc/Eterm-0.9.5/configure.in	2008-05-14 14:49:22.000000000 -0500
++++ src/Eterm-0.9.5/configure.in	2008-12-26 01:09:19.021750000 -0600
+@@ -1076,7 +1076,7 @@
+          } else {
+            print $0;
+          }
+-        }' $i.in > $i
++        }' $srcdir/$i.in > $i
+ done
+ &%
+ changequote([, ])dnl
