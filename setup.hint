@@ -1,5 +1,5 @@
 category: Shells X11
-requires: cygwin libast2 libimlib2 libX11_6 libXext6 libXmu6 libXRes1 bash coreutils diffutils perl sed
+requires: libast2 libimlib2 libX11_6 libXext6 libXmu6 libXRes1 bash coreutils diffutils perl sed
 sdesc: "Enlightenment virtual terminal emulator"
 ldesc: "Eterm is a color vt102 terminal emulator intended as a 
 replacement for xterm. It is designed with a Freedom of Choice 
