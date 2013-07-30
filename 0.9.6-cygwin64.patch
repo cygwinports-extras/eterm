@@ -1,0 +1,71 @@
+--- origsrc/Eterm-0.9.6/src/command.c	2011-03-16 01:05:03.000000000 -0500
++++ src/Eterm-0.9.6/src/command.c	2013-07-30 03:14:56.815992100 -0500
+@@ -187,7 +187,7 @@ void
+ privileges(int mode)
+ {
+ 
+-#ifdef __CYGWIN32__
++#ifdef __CYGWIN__
+     return;
+ #endif
+ 
+@@ -1283,7 +1283,7 @@ clean_exit(void)
+ 
+     privileges(INVOKE);
+ 
+-#ifndef __CYGWIN32__
++#ifndef __CYGWIN__
+     if (ttydev) {
+         D_CMD(("Restoring \"%s\" to mode %03o, uid %d, gid %d\n", ttydev, ttyfd_stat.st_mode, ttyfd_stat.st_uid,
+                ttyfd_stat.st_gid));
+@@ -1294,7 +1294,7 @@ clean_exit(void)
+             D_UTMP(("chown(\"%s\", %d, %d) failed:  %s\n", ttydev, ttyfd_stat.st_uid, ttyfd_stat.st_gid, strerror(errno)));
+         }
+     }
+-#endif /* __CYGWIN32__ */
++#endif /* __CYGWIN__ */
+ 
+ #ifdef UTMP_SUPPORT
+     remove_utmp_entry();
+@@ -1548,7 +1548,7 @@ get_tty(void)
+ # endif
+ 
+         privileges(INVOKE);
+-# ifndef __CYGWIN32__
++# ifndef __CYGWIN__
+         fchown(fd, my_ruid, gid);       /* fail silently */
+         fchmod(fd, mode);
+ # endif
+@@ -2363,10 +2363,10 @@ run_command(char **argv)
+         /* No special treatment is needed for systems with saved uids/gids,
+            because the exec*() calls reset the saved uid/gid to the
+            effective uid/gid                               -- mej */
+-# ifndef __CYGWIN32__
++# ifndef __CYGWIN__
+         setregid(my_rgid, my_rgid);
+         setreuid(my_ruid, my_ruid);
+-# endif /* __CYGWIN32__ */
++# endif /* __CYGWIN__ */
+ #endif /* _HPUX_SOURCE */
+ 
+         D_UTMP(("Child process reset\n"));
+@@ -3199,7 +3199,7 @@ tt_winsize(int fd)
+ 
+     ws.ws_row = (unsigned short) TERM_WINDOW_GET_REPORTED_ROWS();
+     ws.ws_col = (unsigned short) TERM_WINDOW_GET_REPORTED_COLS();
+-#ifndef __CYGWIN32__
++#ifndef __CYGWIN__
+     ws.ws_xpixel = (unsigned short) TERM_WINDOW_GET_WIDTH();
+     ws.ws_ypixel = (unsigned short) TERM_WINDOW_GET_HEIGHT();
+ #endif
+--- origsrc/Eterm-0.9.6/src/feature.h	2009-10-07 21:49:32.000000000 -0500
++++ src/Eterm-0.9.6/src/feature.h	2013-07-30 03:14:20.624922100 -0500
+@@ -315,7 +315,7 @@ inline void *memmove(void *, const void
+ #endif
+ 
+ /* utmp doesn't work on CygWin32 */
+-#ifdef __CYGWIN32__
++#ifdef __CYGWIN__
+ # undef UTMP_SUPPORT
+ #endif
+ 

@@ -1,0 +1,39 @@
+NAME="eterm"
+VERSION=0.9.6
+RELEASE=1
+CATEGORY="Shells X11"
+SUMMARY="Enlightenment virtual terminal emulator"
+DESCRIPTION="Eterm is a color vt102 terminal emulator intended as a
+replacement for xterm. It is designed with a Freedom of Choice philosophy,
+leaving as much power, flexibility, and freedom as possible in the hands of
+the user. It is designed to look good and work well, but takes a feature-rich
+approach rather than one of minimalism while still maintaining speed and
+efficiency."
+REQUIRES="coreutils diffutils perl sed"
+HOMEPAGE="http://www.eterm.org/"
+SRC_URI="http://www.eterm.org/download/Eterm-${VERSION}.tar.gz
+         http://www.eterm.org/download/Eterm-bg-${VERSION}.tar.gz"
+SRC_DIR="Eterm-${VERSION}"
+PATCH_URI="
+	0.9.5-no-undefined.patch
+	0.9.5-vpath.patch
+	0.9.6-cygwin64.patch
+"
+
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+	cp -r ../bg/ .
+}
+
+CYGCONF_ARGS="
+	--disable-static
+	--enable-escreen
+	--disable-mmx
+	--enable-multi-charset
+	--enable-trans
+	--with-backspace=auto
+	--with-delete=execute
+	--with-imlib
+	--without-pty-group
+	--without-saved-uids
+"
